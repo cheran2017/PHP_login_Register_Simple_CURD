@@ -1,21 +1,33 @@
+<?php
+  session_start();
+  if(isset($_SESSION["id"])) {
+    header("Location:views/profile.php");
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login Page</title>
-	
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
-
 <body>
-	<form id="register">
-	<input type="text" name="name" >
-	<input type="email" name="email" >
-	<input type="password" name="password" >
-	<input type="date" data-date="" data-date-format="YYYY DD MMMM " name="dob" >
-	<input type="number" name="age" >
-	<input type="number" name="contact_number" >
-		<input type="submit" name="submit" class="btn btn-primary form-control" id="submit" value="Register">
-	</form>
+  <form id="register">
+    <div class="container">
+      <h2>Register Form</h2>
+      <label for="name"><b>Name</b></label>
+      <input type="text" placeholder="Enter name" name="uname" required id="name">
+      <label for="uname"><b>Email</b></label>
+      <input type="email" placeholder="Enter email" name="uname" required id="email">
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter password" name="psw" required id="password">
+      <label for="name"><b>AGE</b></label>
+      <input type="number" placeholder="Enter age" name="uname" required id="age">
+      <label for="Contact Number"><b>Contact Number</b></label>
+      <input type="number" placeholder="Enter contact number" name="uname" required id="contact_number">
+      <button type="submit">Register</button>
+      <a href="../index.php"> Already User?</a>
+    </div>
+  </form>
 </body>
 </html>
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
@@ -39,19 +51,18 @@
 
 	    // Serialize the data in the form
 	    var data = {
-	    	name     :  'cheran',
-	    	email    :  'cheran@gmail.com',
-	    	password : 'sdfsd',
-	    	dob      : '1992-12-12',
-	    	age      :  '23',
-	    	contact_number : '12121'
+	    	name     :  $('#name').val(),
+	    	email    :  $('#email').val(),
+	    	password : $('#password').val(),
+	    	age      :  $('#age').val(),
+	    	contact_number : $('#contact_number').val()
 	    };
 	    // Let's disable the inputs for the duration of the Ajax request.
 	    // Note: we disable elements AFTER the form data has been serialized.
 	    // Disabled form elements will not be serialized.
 	    $inputs.prop("disabled", true);
 	    request = $.ajax({
-	        url: "http://localhost/guvi/config/register.php",
+	        url: "../config/register.php",
 	        type: "post",
 	        data: JSON.stringify(data),
 	        dataType: 'json',
@@ -64,6 +75,7 @@
 	        console.log(response);
 	        if (response.status == true) {
 	        	alert(response.message);
+            	window.location.href ='../index.php';
 	        } else {
 	        	alert('User Registeration Failed');
 	        }

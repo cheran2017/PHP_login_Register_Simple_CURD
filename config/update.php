@@ -7,7 +7,6 @@
 	$sql = "UPDATE `users` SET  name  = '$input->name' , 
 								email = '$input->email',
 								password = '$input->password',
-								dob     = '$input->dob',
 								age      = '$input->age',
 								contact_number = '$input->contact_number'
 			WHERE id = $id ";

@@ -13,7 +13,6 @@
 		name VARCHAR(30) NOT NULL,
 		email VARCHAR(50) NOT NULL,
 		password VARCHAR(50) NOT NULL,
-		dob DATE NOT NULL,
 		age VARCHAR(30) NOT NULL,
 		contact_number VARCHAR(30) NOT NULL
 

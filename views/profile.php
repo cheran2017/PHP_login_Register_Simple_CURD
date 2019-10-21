@@ -10,9 +10,10 @@
 <html>
 <head>
 	<title>Profile Page</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-	<a href="../config/logout.php">Log Out</a>
 	<?php 
 		$sql = "SELECT * FROM users WHERE id='" . $_SESSION["id"] ."'";
 		$result = $conn->query($sql);
@@ -22,20 +23,29 @@
 				'name'		=> $row['name'],
 				'email'		=> $row['email'],
 				'age'		=> $row['age'],
-				'dob'		=> $row['dob'],
 				'contact_number'		=> $row['contact_number'],
 			];
 
 		
 	 ?>
 	 <form id="update">
-	<input type="text" name="name" id="name" value="<?php echo $row['name']; ?>">
-	<input type="email" name="email" id="email"  value="<?php echo $row['email']; ?>">
-	<input type="date" data-date="" id="dob"  data-date-format="YYYY DD MMMM " name="dob" value="<?php echo $row['dob']; ?>">
-	<input type="number" name="age" id="age" value="<?php echo $row['age']; ?>">
-	<input type="hidden" name="password" id="password" value="<?php echo $row['password']; ?>">
-	<input type="number" name="contact_number" id="contact_number" value="<?php echo $row['contact_number']; ?>">
-		<input type="submit" name="submit" class="btn btn-primary form-control" id="submit" value="Update">
+	 	<div class="container">
+		  <a href="../config/logout.php" class="pull-right">Log Out</a>
+
+	      <h2>Profile</h2>
+		  <br>
+	      <label for="name"><b>Name</b></label>
+	      <input type="text" placeholder="Enter name" name="uname" required id="name" value="<?php echo $row['name']; ?>">
+	      <label for="uname"><b>Email</b></label>
+	      <input type="email" placeholder="Enter email" name="uname" required id="email" value="<?php echo $row['email']; ?>">
+
+	      <label for="name"><b>AGE</b></label>
+	      <input type="number" placeholder="Enter age" name="uname" required id="age" value="<?php echo $row['age']; ?>">
+	      <label for="Contact Number"><b>Contact Number</b></label>
+	      <input type="number" placeholder="Enter contact number" name="uname" required id="contact_number" value="<?php echo $row['contact_number']; ?>">
+	      <button type="submit" id="submit">Update</button>
+	     </div>
+			<input type="hidden" name="password" id="password" value="<?php echo $row['password']; ?>">
 	</form>
 	<?php } ?>
 </body>
@@ -73,7 +83,7 @@
 	    // Disabled form elements will not be serialized.
 	    $inputs.prop("disabled", true);
 	    request = $.ajax({
-	        url: "http://localhost/guvi/config/update.php",
+	        url: "../config/update.php",
 	        type: "post",
 	        data: JSON.stringify(data),
 	        dataType: 'json',
@@ -84,11 +94,11 @@
 	    request.done(function (response, textStatus, jqXHR){
 	        // Log a message to the console
 	        // console.log(response);
-	        // if (response.status == true) {
-	        // 	alert(response.message);
-	        // } else {
-	        // 	alert('User Update Failed');
-	        // }
+	        if (response.status == true) {
+	        	alert(response.message);
+	        } else {
+	        	alert('User Update Failed');
+	        }
 	    });
 
 	    // Callback handler that will be called on failure

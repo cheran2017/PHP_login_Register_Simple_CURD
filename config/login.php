@@ -9,13 +9,7 @@
 		session_start();
 		$_SESSION["id"] = $row['id'];
 		$_SESSION["name"] = $row['name'];
-		$data  = [
-			'name'		=> $row['name'],
-			'email'		=> $row['email'],
-			'age'		=> $row['age'],
-			'dob'		=> $row['dob'],
-			'contact_number'		=> $row['contact_number'],
-		];
+		
 	    echo json_encode([ 'status' => true , 'message' => 'Login Successfull']);
 
 	} else {
