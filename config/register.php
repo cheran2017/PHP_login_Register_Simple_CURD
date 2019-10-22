@@ -5,11 +5,19 @@
 
 	$input = json_decode(file_get_contents('php://input'));
 
-	$sql = "INSERT INTO `users` (name, email, password,age,contact_number)
-	        VALUES ('$input->name', '$input->email', '$input->password','$input->age','$input->contact_number')";
+	// prepare and bind
+	$stmt = $conn->prepare("INSERT INTO users (name, email, password,age,contact_number) VALUES (?, ?, ?,?,?)");
+	$stmt->bind_param("sssii",$name, $email, $password,$age,$contact_number);
 
-	if ($conn->query($sql) === TRUE) {
-		$json      = 'jsons/'.$input->name.'.json';
+	// set parameters and execute
+	$name 			= $input->name;
+	$email  		= $input->email;
+	$password  		= $input->password;
+	$age    		= $input->age;
+	$contact_number = $input->contact_number;
+
+	if ($stmt->execute() === TRUE) {
+		$json      = 'jsons/'.$email.'.json';
 		$json_data = $input;
 		$fp = fopen($json, 'w');
 		fwrite($fp, json_encode($json_data));
@@ -18,5 +26,6 @@
 	} else {
 	    echo "Error: " . $sql . "<br>" . $conn->error;
 	}
-
+	$stmt->close();	
+	$conn->close();
  ?>
